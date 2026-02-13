@@ -46,7 +46,9 @@ _вывод `sudo ss -tlnp | grep ssh`_
 
 _вывод `grep '/bin/bash' /etc/passwd`_
 
-![users](screenshots/08-users.png)
+![users](screenshots/08-users-1.png)
+
+![users](screenshots/08-users-2.png)
 
 _процесс создания пользователя `boardy`_
 
