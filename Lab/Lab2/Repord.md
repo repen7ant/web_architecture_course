@@ -38,7 +38,7 @@ _настройка имени и email_
 ![git_config](screenshots/07-git-config.png)
 
 _идентификация_
-[!ssh_github](screenshots/08-ssh-github.png)
+![ssh_github](screenshots/08-ssh-github.png)
 
 ## 7. Репозиторий и структура
 
