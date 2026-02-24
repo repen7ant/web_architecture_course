@@ -3,7 +3,7 @@
 У меня ssh-ключ уже был, поэтому я не стал перезаписывать
 ![ssh-keygen](screenshots/01-ssh-keygen.png)
 
-## 2. ~~VPS и фаервол~~ Raspberry Pi
+## 2. ~~VPS~~ Raspberry Pi и фаервол
 
 Я решил вместо создания VPS в VK Cloud использовать Raspberry Pi 5, на котором поднят tailscale
 для подключения по SSH через внутренний IP и хостинга веб-приложений
