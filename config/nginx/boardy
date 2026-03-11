@@ -1,0 +1,24 @@
+server {
+    listen 80;
+    server_name usoltsev.puma-mintaka.ts.net; 
+
+    root /var/www/boardy;
+    index index.html;
+
+    access_log /var/log/nginx/boardy-access.log;
+    error_log /var/log/nginx/boardy-error.log;
+
+    location = /submit {
+        if ($request_method = POST) {
+            return 405;
+        }
+        return 404;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    error_page 404 /404.html;
+} 
+
