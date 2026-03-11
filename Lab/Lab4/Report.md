@@ -54,7 +54,7 @@ sudo nginx -t && sudo systemctl reload nginx
 
 ![dns-api](screenshots/06-dns-api.png)
 
-~## 7. Проверка DNS~
+## 7. ~Проверка DNS~
 
 ## 8. Конфиг и заглушка API
 
