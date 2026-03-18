@@ -1,0 +1,30 @@
+server {
+    listen 80;
+    server_name usoltsev.puma-mintaka.ts.net;
+    root /var/www/boardy;
+
+    index index.html;
+    access_log /var/log/nginx/boardy-access.log;
+    error_log /var/log/nginx/boardy-error.log;
+
+    # Редирект на HTTPS, если пришли напрямую по HTTP (не через Tailscale Funnel)
+    if ($http_x_forwarded_proto = "") {
+        return 301 https://$host$request_uri;
+    }
+
+    location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg)$ {
+        expires 7d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml;
+    gzip_min_length 256; 
+
+    location / {
+        add_header Strict-Transport-Security "max-age=31536000" always;
+        try_files $uri $uri/ =404;
+    }
+
+    error_page 404 /404.html;
+}
