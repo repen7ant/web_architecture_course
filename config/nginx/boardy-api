@@ -1,0 +1,17 @@
+server {
+    listen 8080 ssl;
+    server_name usoltsev.puma-mintaka.ts.net;
+
+    ssl_certificate     /var/lib/tailscale/certs/usoltsev.puma-mintaka.ts.net.crt;
+    ssl_certificate_key /var/lib/tailscale/certs/usoltsev.puma-mintaka.ts.net.key;
+
+    root /var/www/boardy-api;
+    index index.html;
+
+    access_log /var/log/nginx/boardy-api-access.log;
+    error_log  /var/log/nginx/boardy-api-error.log;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

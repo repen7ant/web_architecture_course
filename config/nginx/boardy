@@ -23,6 +23,22 @@ server {
 
     location / {
         add_header Strict-Transport-Security "max-age=31536000" always;
+    server_name usoltsev.puma-mintaka.ts.net; 
+
+    root /var/www/boardy;
+    index index.html;
+
+    access_log /var/log/nginx/boardy-access.log;
+    error_log /var/log/nginx/boardy-error.log;
+
+    location = /submit {
+        if ($request_method = POST) {
+            return 405;
+        }
+        return 404;
+    }
+
+    location / {
         try_files $uri $uri/ =404;
     }
 
