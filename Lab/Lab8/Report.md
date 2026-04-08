@@ -28,7 +28,7 @@ unicode_ci — чтобы искать и сортировать без голо
 
 Установлен phpMyAdmin, подключен к Nginx, выполнен вход под пользователем boardy.
 
-![phpmyadmin](screnshots/03-phpmyadmin.png)
+![phpmyadmin](screenshots/03-phpmyadmin.png)
 
 # Часть B. Таблицы и связи
 
