@@ -85,7 +85,7 @@ https://boardy-api.emrysdev.xyz/docs#
 
 Список комментариев + создание нового на Vanilla JS
 
-![vanilla](screesnhots/08-vanill.png)
+![vanilla](screesnhots/08-vanilla.png)
 
 ### Что делает функция esc()? Что случится если её не вызвать?
 
@@ -132,7 +132,7 @@ curl -i -X POST https://boardy-api.emrysdev.xyz/api/posts/1/comments \
      -d '{"body": "Нормальный комментарий. <img src=x onerror=alert(\"XSS_атака_прошла!\")>"}'
 ```
 
-![xss](screnshots/15-xss.png)
+![xss](screenshots/15-xss.png)
 
 ### Как vanilla JS и React защищаются от XSS? Какой способ надёжнее?
 
