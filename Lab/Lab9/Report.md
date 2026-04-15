@@ -85,7 +85,7 @@ https://boardy-api.emrysdev.xyz/docs#
 
 Список комментариев + создание нового на Vanilla JS
 
-![vanilla](screesnhots/08-vanilla.png)
+![vanilla](screenshots/08-vanilla.png)
 
 ### Что делает функция esc()? Что случится если её не вызвать?
 
