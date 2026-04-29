@@ -1,70 +1,54 @@
 <?php
+$page_title = 'Новый пост';
+require_once 'partials/head.php';
+
+if (empty($_SESSION['user_id'])) {
+    header('Location: /login.php');
+    exit;
+}
+
 require_once 'db.php';
+$error = '';
 
-$name    = $_POST['name']    ?? '';
-$message = $_POST['message'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $message = trim($_POST['message'] ?? '');
 
-if ($name && $message) {
-
-    // Ищем или создаём пользователя
-    $stmt = $pdo->prepare('SELECT id FROM users WHERE name = ?');
-    $stmt->execute([$name]);
-    $user = $stmt->fetch();
-
-    if (!$user) {
-        $stmt = $pdo->prepare(
-            'INSERT INTO users (name, email, password) VALUES (?, ?, ?)'
-        );
-        $stmt->execute([$name, $name . '@boardy.local', 'temp']);
-        $user_id = $pdo->lastInsertId();
+    if (empty($message)) {
+        $error = 'Сообщение не может быть пустым.';
     } else {
-        $user_id = $user['id'];
-    }
+        $stmt = $pdo->prepare(
+            'INSERT INTO posts (title, body, author_id) VALUES (?, ?, ?)'
+        );
+        $stmt->execute(['Сообщение', $message, $_SESSION['user_id']]);
 
-    // Создаём пост (prepared statement!)
-    $stmt = $pdo->prepare(
-        'INSERT INTO posts (title, body, author_id) VALUES (?, ?, ?)'
-    );
-    $stmt->execute(['Сообщение', $message, $user_id]);
+        header('Location: /messages.php');
+        exit;
+    }
 }
 ?>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <title>Boardy</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <header>
-        <h1><a href="/">Boardy</a></h1>
-    </header>
-    <main>
-        <h2>Спасибо, <?= htmlspecialchars($name) ?>!</h2>
-        <p>
-            <a href="/">На главную</a> |
-            <a href="/messages.php">Все сообщения</a>
-        </p>
+    <?php require 'partials/nav.php'; ?>
+
+    <main class="auth-container">
+        <div class="auth-card" style="max-width: 600px;">
+            <h2 class="auth-title">Новый пост</h2>
+
+            <?php if ($error): ?>
+                <div style="color: #c34043; background: rgba(195, 64, 67, 0.1); padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 14px;">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+
+            <form action="/submit.php" method="POST">
+                <label for="message">Текст</label>
+                <textarea id="message" name="message" rows="6" required
+                          placeholder="Напишите ваше объявление..."></textarea>
+
+                <div style="display: flex; align-items: center; gap: 15px; margin-top: 20px;">
+                    <button type="submit" style="margin-top: 0;">Опубликовать</button>
+                    <a href="/messages.php" style="color: #174c6d; font-size: 14px;">Отмена</a>
+                </div>
+            </form>
+        </div>
     </main>
-</body>
-</html>
-$name = $_POST['name'] ?? 'Аноним';
-$message = $_POST['message'] ?? '';
 
-$line = date('Y-m-d H:i:s') . '|' . $name . '|' . $message . PHP_EOL;
-file_put_contents('/var/www/boardy/data/messages.txt', $line, FILE_APPEND);
-?>
-
-<!DOCTYPE html>
-<html lang="ru">
-<head><meta charset="utf-8"><title>Boardy</title>
-<link rel="stylesheet" href="/css/style.css"></head>
-<body>
-<header><h1><a href="/">Boardy</a></h1></header>
-<main>
-    <h2>Спасибо, <?= htmlspecialchars($name) ?>!</h2>
-    <p>Ваше сообщение получено.</p>
-    <p><a href="/">На главную</a> |
-        <a href="/messages.php">Все сообщения</a></p>
-</main>
-</body></html>
+<?php require 'partials/foot.php'; ?>
